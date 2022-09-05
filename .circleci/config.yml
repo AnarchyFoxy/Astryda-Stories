@@ -11,7 +11,7 @@ jobs:
      - run:
          command: pip install -r requirements.txt
      - run:
-         command: manage.py test
+         command: ./manage.py test
  deploy-aws:
    working_directory: ~/asta-stories/astastories
    docker:
