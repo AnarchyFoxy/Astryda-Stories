@@ -1,0 +1,35 @@
+version: 2.1
+jobs:
+ test:
+   working_directory: ~/astrydastories
+   docker:
+     - image: cimg/python:3.10.6
+   steps:
+     - checkout
+     - run:
+         command: python --version
+     - run:
+         command: pip install -r requirements.txt
+     - run:
+         command: manage.py test
+ deploy-aws:
+   working_directory: ~/asta-stories/astastories
+   docker:
+     - image: cimg/python:3.10.6
+   steps:
+     - checkout
+     - run:
+         name: Installing deployment dependencies
+         working_directory: ~/astrydastories
+         command: pip install awsebcli --upgrade
+     - run:
+         name: Deploying application to Elastic Beanstalk
+         command: eb deploy
+workflows:
+ version: 2.1
+ build-test-and-deploy:
+   jobs:
+     - test
+     - deploy-aws:
+         requires:
+           - test
