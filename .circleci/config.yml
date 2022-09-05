@@ -25,6 +25,8 @@ jobs:
      - run:
          name: Deploying application to Elastic Beanstalk
          command: eb deploy
+
+         
 workflows:
  version: 2.1
  build-test-and-deploy:
