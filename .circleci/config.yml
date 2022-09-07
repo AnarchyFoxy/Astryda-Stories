@@ -35,3 +35,7 @@ workflows:
      - deploy-aws:
          requires:
            - test
+         filters:
+            branches:
+              only:
+                - master
