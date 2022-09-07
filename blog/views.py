@@ -20,6 +20,9 @@ def post_detail(request, year, month, day, post):
     #list of actie comments for specific post
     comments = post.comments.filter(active=True)
 
+    new_comment = None
+    comment_form = None
+
     if request.method == 'POST':
         # published post
         comment_form = CommentForm(data=request.POST)
@@ -32,7 +35,7 @@ def post_detail(request, year, month, day, post):
             new_comment.save()
         else:
             comment_form = CommentForm()
-    return render(request, 'blog/post/detail.html', {'post': post, 'comments': comments, 'comment_form': comment_form})
+    return render(request, 'blog/post/detail.html', {'post': post, 'comments': comments, 'new_comment': new_comment, 'comment_form': comment_form})
 
 def post_share(request, post_id):
     #uploading post based on its identifier:
